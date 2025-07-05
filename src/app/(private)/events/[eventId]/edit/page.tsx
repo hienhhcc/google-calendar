@@ -5,10 +5,11 @@ import { auth } from "@clerk/nextjs/server";
 import { notFound } from "next/navigation";
 
 export default async function EditEventPage({
-  params: { eventId },
+  params,
 }: {
-  params: { eventId: string };
+  params: Promise<{ eventId: string }>;
 }) {
+  const { eventId } = await params;
   const { userId, redirectToSignIn } = await auth();
 
   if (userId === null) {
